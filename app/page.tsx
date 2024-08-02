@@ -25,7 +25,7 @@ export default function Page() {
           />
            */}
           <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className} antialiased`}>
-            <strong>Welcome to Acme.</strong> This is the example for the{' '}
+            <strong>ウェルカム トゥー Acme.</strong> ここは、きふわらべのお父んが Next.JS の公式チュートリアルを練習しているんだぜ。This is the example for the{' '}
             <a href="https://nextjs.org/learn/" className="text-blue-500">
               Next.js Learn Course
             </a>
