@@ -1,10 +1,24 @@
 'use client';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useSearchParams } from 'next/navigation';
 
 export default function Search({ placeholder }: { placeholder: string }) {
+  const searchParams = useSearchParams();
+
   function handleSearch(term: string) {
     console.log(`[handleSearch] ${term}`);
+
+    // ＵＲＬの引数を扱うオブジェクト
+    const params = new URLSearchParams(searchParams);
+
+    // 検索欄に入力されている文字列を、ＵＲＬの引数に追加する
+    if (term) {
+      params.set('query', term);
+    // 検索欄に入力されている文字列がなければ、ＵＲＬの引数から削除する
+    } else {
+      params.delete('query');
+    }
   }
 
   return (
