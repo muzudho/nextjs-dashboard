@@ -16,6 +16,9 @@ export default function Search({ placeholder }: { placeholder: string }) {
     // ＵＲＬの引数を扱うオブジェクト
     const params = new URLSearchParams(searchParams);
 
+    // ページ番号を１にリセットする
+    params.set('page', '1');
+
     // 検索欄に入力されている文字列を、ＵＲＬの引数に追加する
     if (term) {
       params.set('query', term);
