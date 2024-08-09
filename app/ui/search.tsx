@@ -2,15 +2,17 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(term: string) {
-    console.log(`[handleSearch] ${term}`);
-
+  // Inside the Search Component...
+  const handleSearch = useDebouncedCallback((term: string) => {
+    console.log(`Searching... ${term}`);
+  
     // ＵＲＬの引数を扱うオブジェクト
     const params = new URLSearchParams(searchParams);
 
@@ -26,7 +28,27 @@ export default function Search({ placeholder }: { placeholder: string }) {
     // `${pathname}` は現在のパス。この場合 "/dashboard/invoices"
     // `params.toString()` は、URLの引数に使える書式になるのか？
     replace(`${pathname}?${params.toString()}`);
-  }
+  }, 300);
+
+  // function handleSearch(term: string) {
+  //   console.log(`Searching... ${term}`);
+
+  //   // ＵＲＬの引数を扱うオブジェクト
+  //   const params = new URLSearchParams(searchParams);
+
+  //   // 検索欄に入力されている文字列を、ＵＲＬの引数に追加する
+  //   if (term) {
+  //     params.set('query', term);
+  //   // 検索欄に入力されている文字列がなければ、ＵＲＬの引数から削除する
+  //   } else {
+  //     params.delete('query');
+  //   }
+
+  //   // replace(...) 関数はURLを置き換える。ユーザーが Lee と入力すると、例えば以下のコードの場合 `/dashboard/invoices?query=lee` といった感じになる
+  //   // `${pathname}` は現在のパス。この場合 "/dashboard/invoices"
+  //   // `params.toString()` は、URLの引数に使える書式になるのか？
+  //   replace(`${pathname}?${params.toString()}`);
+  // }
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
